@@ -14,6 +14,7 @@ import java.util.Optional;
 public interface RoomRepository extends JpaRepository <Room, Long>{
 
     List<Room> findAll();
+
     Optional<Room> findById(long id);
 
     @Query(value="SELECT * FROM rooms r WHERE r.name = :name", nativeQuery = true)

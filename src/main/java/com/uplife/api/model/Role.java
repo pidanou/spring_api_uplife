@@ -1,53 +1,39 @@
 package com.uplife.api.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-
+import java.util.Set;
 
 @Entity
-@Table (name = "rooms")
-public class Room {
+@Table(name = "roles")
+public class Role {
 
     //Attributes
-
     @Id
     @GeneratedValue
     private long id;
 
-    @NotBlank
-    private String campus;
-
-    @NotBlank
     private String name;
+
+    @ManyToMany(mappedBy = "role")
+    private Set<User> users;
 
     //Constructors
 
-    public Room(){
-        super();
-    }
+    public Role(){super();}
 
-    public Room (String campus, String name){
-        super();
-        this.campus = campus;
+    public Role(String name, Set<User> users) {
         this.name = name;
+        this.users = users;
     }
 
     //Getters and setters
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public String getCampus() {
-        return campus;
-    }
-
-    public void setCampus(String campus) {
-        this.campus = campus;
     }
 
     public String getName() {
@@ -56,5 +42,13 @@ public class Room {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
 }
