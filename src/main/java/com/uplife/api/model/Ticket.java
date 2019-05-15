@@ -11,7 +11,8 @@ public class Ticket {
     @GeneratedValue
     private Long id;
 
-
+    @NotBlank
+    private Long author_id;
 
 
 }
