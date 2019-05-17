@@ -14,27 +14,28 @@ import java.util.Optional;
 @RestController
 public class RoomController {
 
-@Autowired
-private RoomRepository RoomRepository;
 
-@GetMapping("/rooms")
+    @Autowired
+    private RoomRepository RoomRepository;
+
+    @GetMapping("/rooms")
     public List<Room> getAllRooms(){
-    return RoomRepository.findAll();
-}
+        return RoomRepository.findAll();
+    }
 
-@GetMapping("/room/getById/{id}")
+    @GetMapping("/room/getById/{id}")
     public Optional<Room> getRoomByID(@PathVariable long id){
-    return RoomRepository.findById(id);
-}
+        return RoomRepository.findById(id);
+    }
 
-@GetMapping("/room/getByName/{name}")
+    @GetMapping("/room/getByName/{name}")
     public Optional<Room> getRoomByName(@PathVariable String name){
-    return RoomRepository.findRoomByName(name);
-}
+        return RoomRepository.findRoomByName(name);
+    }
 
-@GetMapping("/room/getAllByCampus/{campus}")
+    @GetMapping("/room/getAllByCampus/{campus}")
     public List<Room> getRoomsByCampus(@PathVariable String campus){
-    return RoomRepository.findRoomByCampus(campus);
-}
+        return RoomRepository.findRoomByCampus(campus);
+    }
 
 }

@@ -2,34 +2,47 @@ package com.uplife.api.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.Set;
 
 @Entity
 @Table(name = "members")
 
 public class Member {
 
+    /*modifier role*/
+
     @Id
     @GeneratedValue
     public long id;
 
-    @NotBlank
-    public String first_name;
+
+    private String username;
+    private String password;
 
     @NotBlank
-    public String last_name;
+    private String first_name;
 
     @NotBlank
-    public int status;
+    private String last_name;
+
+    private int status;
+
+    @Transient
+    private String passwordConfirm;
 
     public Member(){
         super();
     }
 
-    public Member (String first_name, String last_name, int status){
+    public Member (String first_name, String last_name, int status, String username,
+                   String password, String passwordConfirm){
         super();
         this.first_name = first_name;
         this.last_name = last_name;
         this.status = status;
+        this.username = username;
+        this.password = password;
+        this.passwordConfirm = passwordConfirm;
     }
 
     public Long getId() {
@@ -56,12 +69,20 @@ public class Member {
         this.last_name = last_name;
     }
 
-    public int getstatus() {
-        return status;
+    public String getPassword() {
+        return password;
     }
 
-    public void setstatus(int status) {
-        this.status = status;
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPasswordConfirm() {
+        return passwordConfirm;
+    }
+
+    public void setPasswordConfirm(String passwordConfirm) {
+        this.passwordConfirm = passwordConfirm;
     }
 
 

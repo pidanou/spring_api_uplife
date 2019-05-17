@@ -9,7 +9,11 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @SpringBootApplication
 @ComponentScan("com.uplife.api.controller")
 @EntityScan("com.uplife.api.model")
+
+
 @EnableJpaRepositories("com.uplife.api.repository")
+
+
 public class UplifeSpringApiApplication {
 
     public static void main(String[] args) {

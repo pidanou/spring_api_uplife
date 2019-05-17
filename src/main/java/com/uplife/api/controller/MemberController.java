@@ -21,13 +21,16 @@ public class MemberController {
 
 
 
-    // Get All Members
+    // Get All Member
+    /*
     @GetMapping("/members")
 
     public Member getMember(){
         Member member=new Member("joanna", "coates", 100 );
         return member;
     }
+
+     */
 
 
 /*
