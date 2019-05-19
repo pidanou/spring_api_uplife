@@ -9,15 +9,12 @@ import java.util.Set;
 
 public class Member {
 
-    /*modifier role*/
-
     @Id
     @GeneratedValue
-    public long id;
+    private long id;
 
-
+    @NotBlank
     private String username;
-    private String password;
 
     @NotBlank
     private String first_name;
@@ -25,47 +22,58 @@ public class Member {
     @NotBlank
     private String last_name;
 
-    private int status;
+    @NotBlank
+    private String password;
 
     @Transient
     private String passwordConfirm;
+
+    @ManyToMany
+    private Set<Role> roles;
 
     public Member(){
         super();
     }
 
-    public Member (String first_name, String last_name, int status, String username,
-                   String password, String passwordConfirm){
-        super();
+    public Member(@NotBlank String username, @NotBlank String first_name, @NotBlank String last_name,
+                  @NotBlank String password, String passwordConfirm, Set<Role> roles) {
+        this.username = username;
         this.first_name = first_name;
         this.last_name = last_name;
-        this.status = status;
-        this.username = username;
         this.password = password;
         this.passwordConfirm = passwordConfirm;
+        this.roles = roles;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public String getfirst_name() {
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getFirst_name() {
         return first_name;
     }
 
-    public void setfirst_name(String first_name) {
+    public void setFirst_name(String first_name) {
         this.first_name = first_name;
     }
 
-    public String getlast_name() {
+    public String getLast_name() {
         return last_name;
     }
 
-    public void setlast_name(String last_name) {
+    public void setLast_name(String last_name) {
         this.last_name = last_name;
     }
 
@@ -85,6 +93,12 @@ public class Member {
         this.passwordConfirm = passwordConfirm;
     }
 
+    public Set<Role> getRoles() {
+        return roles;
+    }
 
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
 }
 
