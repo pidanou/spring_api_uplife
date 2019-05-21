@@ -14,35 +14,22 @@ import java.util.List;
 @RestController
 public class MemberController {
 
-   /* @Autowired
+    /*
+
+    @Autowired
     MembersRepository membersRepository;
 
-    */
+
 
 
 
     // Get All Member
-    /*
+
     @GetMapping("/members")
-
-    public Member getMember(){
-        Member member=new Member("joanna", "coates", 100 );
-        return member;
-    }
-
-     */
-
-
-/*
-
     public List<Member> getAllMembers() {
         return membersRepository.findAll();
-    }*/
+    }
 
-
-
-
-    /*
 
     // Create a new member
     @PostMapping("/members")
@@ -65,7 +52,6 @@ public class MemberController {
                 .orElseThrow(() -> new MemberNotFoundException(memberId));
         member.setfirst_name(memberDetails.getfirst_name());
         member.setlast_name(memberDetails.getlast_name());
-        member.setstatus(memberDetails.getstatus());
         Member updatedMember = membersRepository.save(member);
         return updatedMember;
     }
@@ -79,6 +65,7 @@ public class MemberController {
         return ResponseEntity.ok().build();
     }
 
- */
+     */
+
 }
 
