@@ -18,22 +18,22 @@ public class RoomController {
     @Autowired
     private RoomRepository RoomRepository;
 
-    @GetMapping("/rooms")
+    @GetMapping("/user/room/getAllRooms")
     public List<Room> getAllRooms(){
         return RoomRepository.findAll();
     }
 
-    @GetMapping("/room/getById/{id}")
+    @GetMapping("/user/room/getById/{id}")
     public Optional<Room> getRoomByID(@PathVariable long id){
         return RoomRepository.findById(id);
     }
 
-    @GetMapping("/room/getByName/{name}")
+    @GetMapping("/user/room/getByName/{name}")
     public Optional<Room> getRoomByName(@PathVariable String name){
         return RoomRepository.findRoomByName(name);
     }
 
-    @GetMapping("/room/getAllByCampus/{campus}")
+    @GetMapping("/user/room/getAllByCampus/{campus}")
     public List<Room> getRoomsByCampus(@PathVariable String campus){
         return RoomRepository.findRoomByCampus(campus);
     }

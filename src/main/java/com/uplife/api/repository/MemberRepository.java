@@ -7,14 +7,13 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface MembersRepository extends JpaRepository <Member, Long> {
+public interface MemberRepository extends JpaRepository <Member, Long> {
 
     List<Member> findAll();
 
     Member findById(long Id);
 
     Member findByUsername(String username);
-
 
 
 }
