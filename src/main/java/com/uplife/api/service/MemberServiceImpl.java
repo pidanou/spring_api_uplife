@@ -28,15 +28,34 @@ public class MemberServiceImpl implements MemberService{
         return new BCryptPasswordEncoder();
     }
 
-    public void save(Member member) {
-        member.setPassword(bCryptPasswordEncoder().encode(member.getPassword()));
-        Optional<Role> basicUserRole = roleRepository.findById(Long.valueOf(1));
-        Set<Role> roleSet = new HashSet<Role>();
-        basicUserRole.ifPresent(roleSet::add);
-        member.setRoles(roleSet);
-        memberRepository.save(member);
+    public String save(Member member) {
+
+        if (!usernameExist(member.getUsername()) && passwordsMatches(member)) {
+            member.setPassword(bCryptPasswordEncoder().encode(member.getPassword()));
+            member.setPasswordConfirmation(bCryptPasswordEncoder().encode(member.getPasswordConfirmation()));
+            Optional<Role> basicUserRole = roleRepository.findById(1L);
+            Set<Role> roleSet = new HashSet<>();
+            basicUserRole.ifPresent(roleSet::add);
+            member.setRoles(roleSet);
+            memberRepository.save(member);
+            return "registered";
+        }
+
+        if(!usernameExist(member.getUsername()) && !passwordsMatches(member)){
+            return "passwordsDontMatch";
+        }
+        return "usernameUsed";
+
     }
 
+    private boolean usernameExist(String username){
+        Optional<Member> member = memberRepository.findByUsername(username);
+        return member.isPresent();
+    }
+
+    private boolean passwordsMatches(Member member){
+        return member.getPassword().equals(member.getPasswordConfirmation());
+    }
 
     public void updateToAdmin(long user_id){
         Optional<Member> member = memberRepository.findById(user_id);
@@ -48,7 +67,7 @@ public class MemberServiceImpl implements MemberService{
         adminRole.ifPresent(memberRole::add);
         final Set<Role> finalMemberRole = new HashSet<>(memberRole);
         member.ifPresent(value -> value.setRoles(finalMemberRole));
-        memberRepository.save(member.get());
+        member.ifPresent(value -> memberRepository.save(value));
     }
 
 }

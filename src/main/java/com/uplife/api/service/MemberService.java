@@ -2,8 +2,8 @@ package com.uplife.api.service;
 
 import com.uplife.api.model.Member;
 
-public interface MemberService {
+public interface MemberService{
 
-    void save(Member member);
+    String save(Member member);
 
 }

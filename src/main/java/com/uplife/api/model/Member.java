@@ -25,6 +25,8 @@ public class Member {
     @NotBlank
     private String password;
 
+    @Transient
+    private String passwordConfirmation;
 
     @ManyToMany(fetch=FetchType.EAGER)
     private Set<Role> roles;
@@ -39,6 +41,8 @@ public class Member {
         this.last_name = member.getLast_name();
         this.password = member.getPassword();
         this.roles = member.getRoles();
+        this.username = member.getUsername();
+        this.passwordConfirmation = member.passwordConfirmation;
     }
 
     public Member(@NotBlank String username, @NotBlank String first_name, @NotBlank String last_name,
@@ -90,6 +94,13 @@ public class Member {
         this.password = password;
     }
 
+    public String getPasswordConfirmation() {
+        return passwordConfirmation;
+    }
+
+    public void setPasswordConfirmation(String passwordConfirmation) {
+        this.passwordConfirmation = passwordConfirmation;
+    }
 
     public Set<Role> getRoles() {
         return roles;

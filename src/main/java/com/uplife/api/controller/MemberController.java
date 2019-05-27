@@ -8,9 +8,16 @@ import com.uplife.api.repository.RoleRepository;
 import com.uplife.api.service.MemberServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 
+import javax.validation.Valid;
+import java.security.Principal;
+import java.util.Collection;
 import java.util.List;
 
 
@@ -30,9 +37,11 @@ public class MemberController {
 
     @PostMapping("/registration")
     @ResponseBody
-    public void registration(Member member){
-        memberService.save(member);
+    public String registration(@Valid Member member){
+        return memberService.save(member);
     }
+
+
 
     @PutMapping("/admin/members/toAdmin/{user_id}")
     public void toAdmin(@PathVariable(value = "user_id") long user_id ){
@@ -55,6 +64,7 @@ public class MemberController {
         return memberRepository.findById(memberId)
                 .orElseThrow(() -> new MemberNotFoundException(memberId));
     }
+
 
     /*/ Update a member
     @PutMapping("/members/{id}")
