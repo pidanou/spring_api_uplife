@@ -18,20 +18,48 @@ public class Ticket {
     private Long author_id;
 
     @NotBlank
-    private int statut_ticket;
+    private Long status_ticket;
 
     private String reponse;
 
+    @NotBlank
+    private String message;
+
+    @NotBlank
+    private String room_name;
+
+    @NotBlank
+    private String subject;
+
+    @NotBlank
+    private Date date;
+
+    private String image;
+
+    @NotBlank
+    private String campus;
+
+    @GeneratedValue
+    private Long nb_likes;
+
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public void setLike(Long nb_likes){
+        this.nb_likes=nb_likes;
+    }
+
+    public void setCampus(String campus){
+        this.campus=campus;
     }
 
     public void setAuthor_id(Long author_id) {
         this.author_id = author_id;
     }
 
-    public void setStatut_ticket(int statut_ticket) {
-        this.statut_ticket = statut_ticket;
+    public void setStatus_ticket(Long status_ticket) {
+        this.status_ticket = status_ticket;
     }
 
     public void setReponse(String reponse) {
@@ -58,20 +86,6 @@ public class Ticket {
         this.image = image;
     }
 
-    @NotBlank
-    private String message;
-
-    @NotBlank
-    private String room_name;
-
-    @NotBlank
-    private String subject;
-
-    @NotBlank
-    private Date date;
-
-    private String image;
-
     public Long getId() {
         return id;
     }
@@ -80,8 +94,8 @@ public class Ticket {
         return author_id;
     }
 
-    public int getStatut_ticket() {
-        return statut_ticket;
+    public Long getStatus_ticket() {
+        return status_ticket;
     }
 
     public String getReponse() {
@@ -107,5 +121,9 @@ public class Ticket {
     public String getImage() {
         return image;
     }
+
+    public String getCampus(){ return campus;}
+
+    public Long getLike(){ return nb_likes;}
 
 }

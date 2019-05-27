@@ -1,3 +1,5 @@
+
+
 package com.uplife.api.repository;
 
 
@@ -23,21 +25,21 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
     Optional<Ticket> findTicketByRoom(@Param("room_name") String room_name);
 
     @Query(value="SELECT * FROM tickets t WHERE t.subject = :subject", nativeQuery = true)
-    Optional<Ticket> findTicketBySubject(@Param("name") String subject);
+    Optional<Ticket> findTicketBySubject(@Param("subject") String subject);
 
-/*
     @Query(value="SELECT * FROM Tickets r WHERE r.campus = :campus", nativeQuery = true)
     List<Ticket> findTicketByCampus(@Param("campus") String campus);
-*/
 
     @Query(value="SELECT * FROM Tickets r WHERE r.author_id = :author_id", nativeQuery = true)
-    List<Ticket> findTicketByAuthor(@Param("author_id") long author_id);
+    Optional<Ticket> findTicketByAuthor(@Param("author_id") long author_id);
 
-    @Query(value="SELECT * FROM tickets t WHERE t.status = :status", nativeQuery = true)
-    Optional<Ticket> findTicketByStatus(@Param("status") int status);
+    @Query(value="SELECT * FROM tickets t WHERE t.status_ticket = :status_ticket", nativeQuery = true)
+    Optional<Ticket> findTicketByStatus(@Param("status_ticket") long status_ticket);
 
     @Query(value="SELECT * FROM tickets t WHERE t.date = :date", nativeQuery = true)
     Optional<Ticket> findTicketByDate(@Param("date") Date date);
 
 
 }
+
+
