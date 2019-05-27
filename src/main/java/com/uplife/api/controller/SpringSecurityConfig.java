@@ -1,6 +1,7 @@
 package com.uplife.api.controller;
 
 
+import com.uplife.api.service.MemberDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,36 +22,43 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private SimpleUrlAuthenticationFailureHandler myFailureHandler = new SimpleUrlAuthenticationFailureHandler();
 
+    @Autowired
+    private MemberDetailsServiceImpl memberDetailsService;
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("admin").password(encoder().encode("adminPass")).roles("ADMIN")
-                .and()
-                .withUser("user").password(encoder().encode("userPass")).roles("USER");
+        auth.userDetailsService(memberDetailsService)
+                .passwordEncoder(bCryptPasswordEncoder);
     }
 
-    @Bean
+    /*@Bean
     public PasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
-    }
+    }*/
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
                 .exceptionHandling()
-                .authenticationEntryPoint(restEntryPoint)
+                //.authenticationEntryPoint(restEntryPoint)
                 .and()
                 .authorizeRequests()
+                .antMatchers("/registration").permitAll()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/user/**").authenticated()
-                .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/admin/**").hasRole("admin")
                 .and()
                 .formLogin()
                 .failureHandler(myFailureHandler)
                 .and()
                 .logout();
     }
+
+
+
 
 }

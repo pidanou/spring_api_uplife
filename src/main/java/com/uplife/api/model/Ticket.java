@@ -22,6 +22,20 @@ public class Ticket {
 
     private String reponse;
 
+    @NotBlank
+    private String message;
+
+    @NotBlank
+    private String room_name;
+
+    @NotBlank
+    private String subject;
+
+    @NotBlank
+    private Date date;
+
+    private String image;
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -57,20 +71,6 @@ public class Ticket {
     public void setImage(String image) {
         this.image = image;
     }
-
-    @NotBlank
-    private String message;
-
-    @NotBlank
-    private String room_name;
-
-    @NotBlank
-    private String subject;
-
-    @NotBlank
-    private Date date;
-
-    private String image;
 
     public Long getId() {
         return id;

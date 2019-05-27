@@ -22,8 +22,10 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
     @Query(value="SELECT * FROM tickets t WHERE t.room_name = :room_name", nativeQuery = true)
     Optional<Ticket> findTicketByRoom(@Param("room_name") String room_name);
 
-    @Query(value="SELECT * FROM tickets t WHERE t.subject = :subject", nativeQuery = true)
+    /*@Query(value="SELECT * FROM tickets t WHERE t.subject = :subject", nativeQuery = true)
     Optional<Ticket> findTicketBySubject(@Param("name") String subject);
+
+     */
 
 /*
     @Query(value="SELECT * FROM Tickets r WHERE r.campus = :campus", nativeQuery = true)

@@ -12,30 +12,35 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+@RestController
 public class TicketController {
 
     @Autowired
     private TicketRepository TicketRepository;
 
-    @GetMapping("user/tickets/getAll")
+
+    @GetMapping("/user/tickets/getAll")
     public List<Ticket> getAllTickets(){
         return TicketRepository.findAll();
     }
 
-    @GetMapping("user/ticket/getById/{id}")
+    @GetMapping("/user/ticket/getById/{id}")
     public Optional<Ticket> getTicketByID(@PathVariable long id){
         return TicketRepository.findById(id);
     }
 
-    @GetMapping("user/ticket/getByIdRoom/{room_name}")
+    @GetMapping("/user/ticket/getByIdRoom/{room_name}")
     public Optional<Ticket> getTicketByRoom(@PathVariable String room_name){
         return TicketRepository.findTicketByRoom(room_name);
     }
 
+    /*
     @GetMapping("user/ticket/getBySubject/{subject}")
     public Optional<Ticket> getTicketByName(@PathVariable String subject){
         return TicketRepository.findTicketBySubject(subject);
     }
+
+     */
 
     /*
     @GetMapping("user/ticket/getByAuthor/{id_author}")
@@ -50,7 +55,7 @@ public class TicketController {
         return TicketRepository.findTicketByStatus(status);
     }
 
-    @GetMapping("user/ticket/getByDate/{date}")
+    @GetMapping("/user/ticket/getByDate/{date}")
     public Optional<Ticket> getTicketByDate(@PathVariable Date date){
         return TicketRepository.findTicketByDate(date);
     }
@@ -67,7 +72,7 @@ public class TicketController {
 
 
     // Delete a ticket
-    @DeleteMapping("admin/tickets/{id}")
+    @DeleteMapping("/admin/tickets/{id}")
     public ResponseEntity<?> deleteTicket(@PathVariable(value = "id") Long ticketId) throws TicketNotFoundException {
         Ticket ticket = TicketRepository.findById(ticketId)
                 .orElseThrow(() -> new TicketNotFoundException(ticketId));
@@ -87,7 +92,7 @@ public class TicketController {
 */
 
     // Update a ticket
-    @PutMapping("user/tickets/{id}")
+    @PutMapping("/user/tickets/{id}")
     public Ticket updateTicket(@PathVariable(value = "id") Long ticketId,
                                @Valid @RequestBody Ticket ticketDetails) throws TicketNotFoundException {
         Ticket ticket = TicketRepository.findById(ticketId)
@@ -101,7 +106,7 @@ public class TicketController {
     }
 
     // Update a ticket
-    @PutMapping("admin/tickets/SetReponse/{id}")
+    @PutMapping("/admin/tickets/SetReponse/{id}")
     public Ticket updateticketReponse(@PathVariable(value = "id") Long ticketId,
                                @Valid @RequestBody String reponse) throws TicketNotFoundException {
         Ticket ticket = TicketRepository.findById(ticketId)
@@ -111,7 +116,7 @@ public class TicketController {
         return updatedticket;
     }
 
-    @PutMapping("admin/tickets/SetStatut/{id}")
+    @PutMapping("/admin/tickets/SetStatut/{id}")
     public Ticket updateticketReponse(@PathVariable(value = "id") Long ticketId,
                                       @Valid @RequestBody int status) throws TicketNotFoundException {
         Ticket ticket = TicketRepository.findById(ticketId)

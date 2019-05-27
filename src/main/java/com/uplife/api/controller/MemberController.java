@@ -4,35 +4,44 @@ package com.uplife.api.controller;
 import com.uplife.api.exception.MemberNotFoundException;
 import com.uplife.api.model.Member;
 import com.uplife.api.repository.MemberRepository;
+import com.uplife.api.repository.RoleRepository;
+import com.uplife.api.service.MemberServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+
 import java.util.List;
+
 
 @RestController
 public class MemberController {
 
    @Autowired
-   MemberRepository memberRepository;
+   private MemberRepository memberRepository;
+
+   @Autowired
+   private MemberServiceImpl memberService;
+
+   @Autowired
+   private RoleRepository roleRepository;
 
 
 
+    @PostMapping("/registration")
+    @ResponseBody
+    public void registration(Member member){
+        memberService.save(member);
+    }
+
+    @PutMapping("/admin/members/toAdmin/{user_id}")
+    public void toAdmin(@PathVariable(value = "user_id") long user_id ){
+        memberService.updateToAdmin(user_id);
+    }
 
 
-    // Get All Member
-    /*@GetMapping("/members")
 
-    public Member getMember(){
-        return member;
-    }*/
-
-
-
-
-
-
+    @GetMapping("/admin/members/getAll")
     public List<Member> getAllMembers() {
         return memberRepository.findAll();
     }
@@ -40,16 +49,8 @@ public class MemberController {
 
 
 
-
-
-    /*/ Create a new member
-    @PostMapping("/members")
-    public Member create(@Valid @RequestBody Member member) {
-        return MembersRepository.save(member);
-    }*/
-
     // Get a Single member
-    @GetMapping("/admin/getMember/{id}")
+    @GetMapping("/admin/members/getMember/{id}")
     public Member getMemberById(@PathVariable(value = "id") Long memberId) throws MemberNotFoundException {
         return memberRepository.findById(memberId)
                 .orElseThrow(() -> new MemberNotFoundException(memberId));
