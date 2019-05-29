@@ -64,7 +64,7 @@ public class TicketController {
     }
 
     // Update a ticket
-    @PutMapping("admin/ticket/SetReponse/{id}")
+    @RequestMapping(value ="admin/ticket/SetReponse/{id}")
     public Ticket updateticketReponse(@PathVariable(value = "id") Long ticketId,
                                @Valid @RequestBody String reponse) throws TicketNotFoundException {
         Ticket ticket = TicketRepository.findById(ticketId)
@@ -74,7 +74,7 @@ public class TicketController {
         return updatedticket;
     }
 
-    @PutMapping("admin/ticket/SetStatus/{id}")
+    @RequestMapping(value ="admin/ticket/SetStatus/{id}")
     public Ticket updateticketReponse(@PathVariable(value = "id") Long ticketId,
                                       @Valid @RequestBody long status) throws TicketNotFoundException {
         Ticket ticket = TicketRepository.findById(ticketId)
@@ -114,6 +114,7 @@ public class TicketController {
      */
     // Create a new ticket
     @PostMapping("user/ticket/createTicket")
+    //@RequestMapping(value = "user/ticket/createTicket")
     public Ticket create(@Valid @RequestBody Ticket ticket) {
         return TicketRepository.save(ticket);
     }
